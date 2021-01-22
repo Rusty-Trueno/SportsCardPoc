@@ -43,7 +43,8 @@
 							"color": "#FFFFFF"
 						}]
 					}
-				}
+				},
+				"enablePullDownRefresh": true
 			}
 		},
 		{
