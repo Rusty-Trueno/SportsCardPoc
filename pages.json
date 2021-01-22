@@ -346,7 +346,7 @@
 			}
 		}
 		// #endif
-	],
+    ],
 	"subPackages": [{
 			"root": "pages/API",
 			"pages": [{

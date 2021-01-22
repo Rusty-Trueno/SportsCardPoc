@@ -1,24 +1,28 @@
 <template>
 	<view class="uni-container">
 		<uni-list v-for="(game, index) in sportsMatches" :key="index">
-			<uni-card
-				title="Dcloud"
+			<sports-card
+				:sportsType=game.sportsType
+				:sportsLeague=game.sportsLeague
+				:gameClock=game.gameClock
+				:gamePeriod=game.gamePeriod
+				:gameStartTime=game.gameStartDateTime
+				:gameState=game.gameState
+				:pAName=game.pAName
+				:pAScore=game.pAScore
+				:pBName=game.pBName
+				:pBScore=game.pBScore
 				mode="title"
-				:is-shadow="true"
-				thumbnail="https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
-				extra="技术没有上限"
-				note="Tips"
-			>
-				那是一个秋意盎然、金风送爽的日子,我和父母一起来到了位于上师大旁的康健园.一踏进公园,一股浓郁的桂香扑鼻而来,泌人心脾,让我心旷神怡,只见一朵朵开得正烈的金色桂花,迎风而立,仿佛在向我招手.我们追着这桂香,走进了清幽的公园.
-			</uni-card>
+			/>
 		</uni-list>
 	</view>
 </template>
 
 <script>
-	import uniCard from '@/components/uni-card/uni-card.vue'
+	import sportsCard from './SportsCard.vue'
+	var timerUpId,timerDownId;
 	export default {
-		components: {uniCard},
+		components: {sportsCard},
 		data() {
 			return {
 				sportsMatches: [],
@@ -27,8 +31,25 @@
 		onShow() {
 			this.getSportsInfo()
 		},
-		onPullDownRefresh() {
-		  this.getSportsInfo()
+		/***部分代码****/
+		onPullDownRefresh() { //触发上拉刷新函数
+			this.getSportsInfo()
+			if (timerUpId != null) { //为防止回弹多次触发刷新
+				clearTimeout(timerUpId)
+			}
+			timerUpId = setTimeout(() => {
+				console.log("下拉刷新");
+				uni.stopPullDownRefresh(); //停止下拉刷新动画
+			}, 1000)
+		},
+		onReachBottom() { //监听页面触底函数
+			if (timerDownId != null) { //为防止回弹多次触发刷新
+				clearTimeout(timerDownId)
+			}
+			timerDownId = setTimeout(() => {
+				console.log("上拉加载");
+			}, 500)
+
 		},
 		methods: {
 			getSportsInfo() {
