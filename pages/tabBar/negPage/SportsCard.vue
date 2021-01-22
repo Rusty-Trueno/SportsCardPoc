@@ -2,24 +2,30 @@
 	<view>
 		<uni-card
 			:title=sportsType
-			mode="title"
 			:is-shadow="true"
 			:extra=sportsLeague
-			note="tips"
+			note="Life lies in sport."
 		>
 			<view class="uni-flex uni-row" style="height:140rpx;">
-			  <view class="margin-0" style="width: 100rpx;">
-				<text>{{gameState}}</text>
+			  <view class="margin-0 uni-flex uni-column" style="width: 100rpx;">
+				  <view class="margin-0 flex-item">
+				  	<text>{{gameState}}</text>
+				  </view>
+				  <view class="margin-0 flex-item" style="padding-top: 10rpx; padding-left: 20rpx;">
+				  	<text>Q1</text>
+				  </view>
 			  </view>
-			  <view class="uni-flex uni-row" style="padding-right: 30rpx;padding-left: 50rpx; width: 240rpx;">
+			  <view class="uni-flex uni-row" style="padding-right: 30rpx;padding-left: 100rpx; width: 240rpx;">
 				<view class="flex-item uni-column">
 				  <view class="margin-0 uni-flex">
+					<image src="./static/Lakers.png" style="width: 40rpx; height: 40rpx;"></image>
 					<text>{{pAName}}</text>
 				  </view>
 				  <view class="margin-0 uni-flex" style="padding-left: 10rpx;">
 					  vs
 				  </view>
 				  <view class="margin-0 uni-flex">
+					<image src="./static/Celts.png" style="width: 40rpx; height: 40rpx;"></image>
 				  	<text>{{pBName}}</text>
 				  </view>
 				</view>
@@ -37,8 +43,13 @@
 					</view>
 				  </view>
 			  </view>
-			  <view class="margin-0 uni-flex-sub">
-				<text style="padding:rpx 0rpx 0rpx 0rpx;">{{tvChannel}}</text>
+			  <view class="margin-0 uni-flex-sub uni-column" style="padding-top: 15rpx;">
+				  <view class="margin-0 flex-item">
+					  <image src="./static/TV.png" style="width: 40rpx; height: 40rpx;"></image>
+				  </view>
+				  <view class="margin-0 flex-item">
+					  <text >{{tvChannel}}</text>
+				  </view>
 			  </view>
 			</view>
 		</uni-card>
