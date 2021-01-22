@@ -1,8 +1,7 @@
 <template>
 	<view class="uni-container">
-		<uni-list>
-			<uni-list-item title="列表文字" rightText="右侧文字" />
-			<uni-list-item title="列表文字" note="列表描述信息" rightText="右侧文字" />
+		<uni-list v-for="(game, index) in sportsMatches" :key="index">
+			<uni-list-item title= {{ game.sportsType }} note= "" + {{game.pAName}} + "vs" + {{game.pBName}} rightText="右侧文字" />
 		</uni-list>
 	</view>
 </template>
@@ -11,7 +10,7 @@
 	export default {
 		data() {
 			return {
-				sportsMatches: []
+				sportsMatches: [],
 			}
 		},
 		onLoad() {
@@ -25,13 +24,21 @@
 					method: 'POST',
 					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\"}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...sportsRecommendationItem\n  __typename\n}\n\nfragment sportsRecommendationItem on SportsRecommendationFeedItemType {\n  sportsRecommendationInfo {\n    sportsMatches {\n      gameId\n      gameClock\n      gameState\n      gamePeriod\n      gameStartDateTime\n      sportsType\n      sportsLeague\n      tvChannel\n      pAName\n      pAScore\n      pBName\n      pBScore\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"},
 					success: (res) => {
-						console.log(res.data.data.feed.main)
-						this.sportsMatches = res.data.data.feed.main.items.map(function(val, index){
+						let results = res.data.data.feed.main.items.map(function(val, index){
 							if (val.__typename == "SportsRecommendationFeedItemType") {
 								return val.sportsRecommendationInfo.sportsMatches
 							}
 						})
-						console.log(this.sportsMatches[0])
+						for (let i in results) {
+							if (results[i] != null) {
+								let games = results[i]
+								for (let j in games) {
+									if (games[j] != null) {
+										this.sportsMatches.push(games[j])
+									}
+								}
+							}
+						}
 					}
 				})
 			}
