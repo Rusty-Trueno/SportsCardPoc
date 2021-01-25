@@ -1,34 +1,54 @@
 <template>
 	<view>
 		<uni-card
-			:title=getTitle
+			:title=sportsType
 			:is-shadow="true"
+			:extra=sportsLeague
 			note="Life lies in sport."
 		>
 			<view class="uni-flex uni-row" style="height:140rpx;">
-			  <view class="uni-flex uni-row" style="padding-right: 270rpx; width: 240rpx;">
+			  <view class="margin-0 uni-flex uni-column" style="width: 100rpx;">
+				  <view class="margin-0 flex-item">
+				  	<text>{{gameState}}</text>
+				  </view>
+				  <view class="margin-0 flex-item" style="padding-top: 10rpx; padding-left: 20rpx;">
+				  	<text>Q1</text>
+				  </view>
+			  </view>
+			  <view class="uni-flex uni-row" style="padding-right: 30rpx;padding-left: 100rpx; width: 240rpx;">
 				<view class="flex-item uni-column">
 				  <view class="margin-0 uni-flex">
 					<image src="./static/Lakers.png" style="width: 40rpx; height: 40rpx;"></image>
 					<text>{{pAName}}</text>
 				  </view>
-				  <view class="margin-0 uni-flex" style="padding-top: 50rpx;">
+				  <view class="margin-0 uni-flex" style="padding-left: 10rpx;">
+					  vs
+				  </view>
+				  <view class="margin-0 uni-flex">
 					<image src="./static/Celts.png" style="width: 40rpx; height: 40rpx;"></image>
 				  	<text>{{pBName}}</text>
 				  </view>
 				</view>
 			  </view>
-			  <view class="uni-flex uni-row" style=" width: 150rpx;">
+			  <view class="uni-flex uni-row" style="padding-right: 80rpx;padding-left: 50rpx; width: 50rpx;">
 				  <view class="flex-item uni-column">
-					<view class="margin-0 uni-flex-sub" style="padding-left: 10rpx;">
-						<text>{{getStartMonth}}</text>
+					<view class="margin-0 uni-flex-sub">
+						<text>{{pAScore}}</text>
+					</view>
+					<view class="margin-0 uni-flex" style="padding-left: 10rpx;">
+						|
 					</view>
 					<view class="margin-0 uni-flex-sub">
-						<text>{{getStartTime}}</text>
+						<text>{{pBScore}}</text>
 					</view>
-					<view class="margin-0 uni-flex-sub" style="padding-left: 24rpx;">
-						<text>{{tvChannel}}</text>
-					</view>
+				  </view>
+			  </view>
+			  <view class="margin-0 uni-flex-sub uni-column" style="padding-top: 15rpx;">
+				  <view class="margin-0 flex-item">
+					  <image src="./static/TV.png" style="width: 40rpx; height: 40rpx;"></image>
+				  </view>
+				  <view class="margin-0 flex-item">
+					  <text >{{tvChannel}}</text>
 				  </view>
 			  </view>
 			</view>
@@ -40,7 +60,7 @@
 	import uniCard from '@/components/uni-card/uni-card.vue'
 	export default {
 		components: {uniCard},
-		name: "SportsCard",
+		name: "SportsDetail",
 		props: {
 			title: {
 				type: String,
@@ -123,32 +143,11 @@
 		},
 		data() {
 			return {
-				months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Spt","Oct","Nov","Dec"]
-			}
-		},
-		computed: {
-			getStartMonth () {
-				let time = new Date(parseInt(this.gameStartTime))
-				return this.months[time.getMonth()+1] + " " + time.getDate()
-			},
-			getStartTime () {
-				let time = new Date(parseInt(this.gameStartTime))
-				return ( time.getUTCHours() >= 12 ? time.getUTCHours()-12 : time.getUTCHours() )+ ":" +
-				( time.getUTCMinutes() > 10 ? time.getUTCMinutes() : '0' + time.getUTCMinutes() ) + " " +
-				( time.getUTCHours() >= 12 ? "PM" : "AM")
-			},
-			getTitle () {
-				let time = new Date(parseInt(this.gameStartTime))
-				return this.sportsLeague + " " + this.getYearWeek(time.getFullYear(), time.getMonth()+1, time.getDate()) + " Week"
+
 			}
 		},
 		methods: {
-			getYearWeek(year,month,date){
-				let dateNow = new Date(year, parseInt(month) - 1, date);
-				let dateFirst = new Date(year, 0, 1);
-				let dataNumber = Math.round((dateNow.valueOf() - dateFirst.valueOf()) / 86400000);
-				return Math.ceil((dataNumber + ((dateFirst.getDay() + 1) - 1)) / 7);
-			}
+
 		}
 	}
 </script>
