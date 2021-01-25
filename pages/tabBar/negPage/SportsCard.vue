@@ -5,7 +5,7 @@
 			:is-shadow="true"
 			note="Life lies in sport."
 		>
-			<view class="uni-flex uni-row" style="height:140rpx;">
+			<view class="uni-flex uni-row" style="height:140rpx;" @click="checkDetail()">
 			  <view class="uni-flex uni-row" style="padding-right: 270rpx; width: 240rpx;">
 				<view class="flex-item uni-column">
 				  <view class="margin-0 uni-flex">
@@ -148,6 +148,24 @@
 				let dateFirst = new Date(year, 0, 1);
 				let dataNumber = Math.round((dateNow.valueOf() - dateFirst.valueOf()) / 86400000);
 				return Math.ceil((dataNumber + ((dateFirst.getDay() + 1) - 1)) / 7);
+			},
+			checkDetail () {
+				console.log(this.sportsLeague)
+				let game = {
+					"pAName": this.pAName,
+					"pAScore": this.pAScore,
+					"pBName": this.pBName,
+					"pBScore": this.pBScore,
+					"gameStartMonth": this.getStartMonth,
+					"gameStartTime": this.getStartTime,
+					"tvChannel": this.tvChannel,
+					"gameClock": this.gameClock,
+					"gameState": this.gameState,
+					"gamePeriod": this.gamePeriod
+				}
+				uni.navigateTo({
+					url:'./SportsDetail?game=' + JSON.stringify(game)
+				})
 			}
 		}
 	}

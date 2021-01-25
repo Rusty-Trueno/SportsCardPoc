@@ -1,6 +1,6 @@
 <template>
 	<view class="uni-container">
-		<uni-list v-for="(game, index) in sportsMatches" :key="index">
+		<uni-list v-for="(game, index) in sportsMatches" :key="index" >
 			<sports-card
 				:sportsType=game.sportsType
 				:sportsLeague=game.sportsLeague
