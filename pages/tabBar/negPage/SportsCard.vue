@@ -133,13 +133,13 @@
 			},
 			getStartTime () {
 				let time = new Date(parseInt(this.gameStartTime))
-				return ( time.getUTCHours() >= 12 ? time.getUTCHours()-12 : time.getUTCHours() )+ ":" +
-				( time.getUTCMinutes() > 10 ? time.getUTCMinutes() : '0' + time.getUTCMinutes() ) + " " +
-				( time.getUTCHours() >= 12 ? "PM" : "AM")
+				return ( time.getHours() >= 12 ? time.getHours()-12 : time.getHours() )+ ":" +
+				( time.getMinutes() > 10 ? time.getMinutes() : '0' + time.getMinutes() ) + " " +
+				( time.getHours() >= 12 ? "PM" : "AM")
 			},
 			getTitle () {
 				let time = new Date(parseInt(this.gameStartTime))
-				return this.sportsLeague + " " + this.getYearWeek(time.getFullYear(), time.getMonth()+1, time.getDate()) + " Week"
+				return this.getYearWeek(time.getFullYear(), time.getMonth()+1, time.getDate()) + " Week"
 			}
 		},
 		methods: {
