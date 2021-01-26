@@ -1,20 +1,23 @@
 <template>
 	<view class="uni-container">
-		<uni-list v-for="(game, index) in sportsMatches" :key="index" >
-			<sports-card
-				:sportsType=game.sportsType
-				:sportsLeague=game.sportsLeague
-				:gameClock=game.gameClock
-				:gamePeriod=game.gamePeriod
-				:gameStartTime=game.gameStartDateTime
-				:gameState=game.gameState
-				:pAName=game.pAName
-				:pAScore=game.pAScore
-				:pBName=game.pBName
-				:pBScore=game.pBScore
-				:tvChannel=game.tvChannel
-				mode="title"
-			/>
+		<uni-list v-for="(sport, index) in sports" :key="index">
+			<text>{{sport.sportsLeague}}</text>
+			<uni-list v-for="(game, index) in sport.sportsMatches" :key="index" >
+				<sports-card
+					:sportsType=game.sportsType
+					:sportsLeague=game.sportsLeague
+					:gameClock=game.gameClock
+					:gamePeriod=game.gamePeriod
+					:gameStartTime=game.gameStartDateTime
+					:gameState=game.gameState
+					:pAName=game.pAName
+					:pAScore=game.pAScore
+					:pBName=game.pBName
+					:pBScore=game.pBScore
+					:tvChannel=game.tvChannel
+					mode="title"
+				/>
+			</uni-list>
 		</uni-list>
 	</view>
 </template>
@@ -27,6 +30,7 @@
 		data() {
 			return {
 				sportsMatches: [],
+				sports: [],
 			}
 		},
 		onShow() {
@@ -59,20 +63,18 @@
 					url: "http://localhost:26216/PeoplePredictionsB2/graphql",
 					dataType: 'json',
 					method: 'POST',
-					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\"}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...sportsRecommendationItem\n  __typename\n}\n\nfragment sportsRecommendationItem on SportsRecommendationFeedItemType {\n  sportsRecommendationInfo {\n    sportsMatches {\n      gameId\n      gameClock\n      gameState\n      gamePeriod\n      gameStartDateTime\n      sportsType\n      sportsLeague\n      tvChannel\n      pAName\n      pAScore\n      pBName\n      pBScore\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"},
+					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\"}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...compositeFeedItem\n  __typename\n}\n\nfragment sportsRecommendationItem on SportsRecommendationFeedItemType {\n  sportsRecommendationInfo {\n    sportsType\n    sportsLeague\n    sportsMatches {\n      gameId\n      gameClock\n      gameState\n      gamePeriod\n      gameStartDateTime\n      sportsType\n      sportsLeague\n      tvChannel\n      pAName\n      pAScore\n      pBName\n      pBScore\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment compositeFeedItem on CompositeFeedItemType {\n  reason\n  composition {\n    ...sportsRecommendationItem\n    __typename\n  }\n  __typename\n}\n"},
 					success: (res) => {
 						let results = res.data.data.feed.main.items.map(function(val, index){
-							if (val.__typename == "SportsRecommendationFeedItemType") {
-								return val.sportsRecommendationInfo.sportsMatches
+							if (val.composition != null && val.composition[0].__typename == "SportsRecommendationFeedItemType") {
+								return val.composition
 							}
 						})
 						for (let i in results) {
 							if (results[i] != null) {
-								let games = results[i]
-								for (let j in games) {
-									if (games[j] != null) {
-										this.sportsMatches.push(games[j])
-									}
+								let sports = results[i]
+								for (let j in sports) {
+									this.sports.push(sports[j].sportsRecommendationInfo)
 								}
 							}
 						}

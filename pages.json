@@ -33,7 +33,7 @@
 		{
 			"path": "pages/tabBar/negPage/Sports",
 			"style": {
-				"navigationBarTitleText": "运动",
+				"navigationBarTitleText": "Sports",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -50,7 +50,7 @@
 		{
 			"path": "pages/tabBar/negPage/SportsDetail",
 			"style": {
-				"navigationBarTitleText": "赛事详情",
+				"navigationBarTitleText": "Details",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -1305,7 +1305,7 @@
 				"pagePath": "pages/tabBar/negPage/Sports",
 				"iconPath": "static/sports.png",
 				"selectedIconPath": "static/sportsHL.png",
-				"text": "运动"
+				"text": "Sports"
 			},
 			{
 				"pagePath": "pages/tabBar/API/API",
