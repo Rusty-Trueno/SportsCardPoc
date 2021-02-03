@@ -65,9 +65,9 @@
 			}
 		},
 		{
-			"path": "pages/tabBar/API/API",
+			"path": "pages/tabBar/WeatherAlert/WeatherAlert",
 			"style": {
-				"navigationBarTitleText": "接口",
+				"navigationBarTitleText": "Weather",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -77,7 +77,8 @@
 							"color": "#FFFFFF"
 						}]
 					}
-				}
+				},
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -363,6 +364,15 @@
 			}
 		}
 		// #endif
+        ,{
+            "path" : "pages/tabBar/WeatherAlert/WeatherAlert",
+            "style" :
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+
+        }
     ],
 	"subPackages": [{
 			"root": "pages/API",
@@ -1308,10 +1318,10 @@
 				"text": "Sports"
 			},
 			{
-				"pagePath": "pages/tabBar/API/API",
-				"iconPath": "static/api.png",
-				"selectedIconPath": "static/apiHL.png",
-				"text": "接口"
+				"pagePath": "pages/tabBar/WeatherAlert/WeatherAlert",
+				"iconPath": "static/weather-off.png",
+				"selectedIconPath": "static/weather-on.png",
+				"text": "Weather"
 			}, {
 				"pagePath": "pages/tabBar/extUI/extUI",
 				"iconPath": "static/extui.png",

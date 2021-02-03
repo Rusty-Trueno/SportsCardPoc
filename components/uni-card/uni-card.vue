@@ -344,7 +344,7 @@
 	}
 
 	.uni-card__content {
-		color: #333;
+		color: #fffff;
 	}
 
 	.uni-card__content--pd {

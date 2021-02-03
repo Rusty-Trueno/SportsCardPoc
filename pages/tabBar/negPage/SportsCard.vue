@@ -139,7 +139,7 @@
 			},
 			getTitle () {
 				let time = new Date(parseInt(this.gameStartTime))
-				return this.getYearWeek(time.getFullYear(), time.getMonth()+1, time.getDate()) + " Week"
+				return "Week " + this.getYearWeek(time.getFullYear(), time.getMonth()+1, time.getDate())
 			}
 		},
 		methods: {
