@@ -23,11 +23,11 @@
 					</view>
 				</view>
 				<view class="margin-0 flex-item uni-column" style="font-size: large; padding-top: 20rpx; padding-right: 20rpx;">
-					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" :class="FWeight" v-on:click="changeUnit(true)">
+					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" v-bind:style="[{ fontWeight: FWeight}]" v-on:click="changeUnit(true)">
 						F°
 					</view>
 					<hr/>
-					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" :class="CWeight" v-on:click="changeUnit(false)">
+					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" v-bind:style="[{ fontWeight: CWeight}]" v-on:click="changeUnit(false)">
 						C°
 					</view>
 				</view>
@@ -85,8 +85,8 @@
 				interval: 2000,
 				duration: 500,
 				isF: true,
-				FWeight: 'font-weight: 800',
-				CWeight: 'font-weight: 100'
+				FWeight: 800,
+				CWeight: 100
 			}
 		},
 		onShow() {
@@ -178,11 +178,11 @@
 			changeUnit(isF) {
 				this.isF = isF
 				if (isF) {
-					this.FWeight = 'font-weight: 800'
-					this.CWeight = 'font-weight: 100'
+					this.FWeight = 800
+					this.CWeight = 100
 				} else {
-					this.FWeight = 'font-weight: 100'
-					this.CWeight = 'font-weight: 800'
+					this.FWeight = 100
+					this.CWeight = 800
 				}
 			},
 		}
