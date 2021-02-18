@@ -67,7 +67,7 @@
 		{
 			"path": "pages/tabBar/WeatherAlert/WeatherAlert",
 			"style": {
-				"navigationBarTitleText": "Weather",
+				"navigationBarTitleText": "Alert",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -98,9 +98,9 @@
 			}
 		},
 		{
-			"path": "pages/tabBar/extUI/extUI",
+			"path": "pages/tabBar/RegularWeather/RegularWeather",
 			"style": {
-				"navigationBarTitleText": "扩展组件",
+				"navigationBarTitleText": "Weather",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -110,7 +110,8 @@
 							"color": "#FFFFFF"
 						}]
 					}
-				}
+				},
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -1319,14 +1320,14 @@
 			},
 			{
 				"pagePath": "pages/tabBar/WeatherAlert/WeatherAlert",
+				"iconPath": "static/alert-off.png",
+				"selectedIconPath": "static/alert-on.png",
+				"text": "Alert"
+			}, {
+				"pagePath": "pages/tabBar/RegularWeather/RegularWeather",
 				"iconPath": "static/weather-off.png",
 				"selectedIconPath": "static/weather-on.png",
 				"text": "Weather"
-			}, {
-				"pagePath": "pages/tabBar/extUI/extUI",
-				"iconPath": "static/extui.png",
-				"selectedIconPath": "static/extuiHL.png",
-				"text": "扩展组件"
 			}, {
 				"pagePath": "pages/tabBar/template/template",
 				"iconPath": "static/template.png",
