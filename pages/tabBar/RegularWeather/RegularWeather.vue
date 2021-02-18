@@ -7,22 +7,22 @@
 		>
 			<view class="uni-flex uni-row" style="height: 300rpx;">
 				<view class="margin-0 flex-item" style="font-size: large;">
-					<image :src='curlIconUrl' style="width: 100rpx; height: 100rpx;"></image>
+					<image :src='curlIconUrl' style="width: 90rpx; height: 100rpx;"></image>
 				</view>
-				<view class="margin-0 flex-item uni-column" style="font-size: large; padding-left: 10rpx; padding-top: 20rpx;">
+				<view class="margin-0 flex-item uni-column" style="font-size: large; padding-left: 10rpx; padding-top: 20rpx; width: 250rpx;">
 					<view class="margin-0 flex-item uni-row">
 						<view class="margin-0 flex-item" style="font-size: 50rpx; color: #000000; font-weight: 800;">
 							{{temperature()}}
 						</view>
 					</view>
 					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000; font-weight: 500;">
-						{{curUvDesc}} today
+						{{curUvDesc}} UV today
 					</view>
-					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000; font-weight: 500;">
-						{{curRH}}%
+					<view class="margin-0 flex-item uni-row" style="font-size: 10rpx; color: #000000; font-weight: 500;">
+						<image src='./static/watermark.png' style="width: 30rpx; height: 30rpx; padding-top: 10rpx;">{{curRH}}%</image>
 					</view>
 				</view>
-				<view class="margin-0 flex-item uni-column" style="font-size: large; padding-top: 20rpx; padding-right: 20rpx;">
+				<view class="margin-0 flex-item uni-column" style="font-size: large; padding-top: 20rpx; padding-right: 10rpx;">
 					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" v-bind:style="[{ fontWeight: FWeight}]" v-on:click="changeUnit(true)">
 						F°
 					</view>
@@ -119,7 +119,7 @@
 				   var now = new Date();
 				   if (now.getDate() == givenDate.getDate()) return 'Today';
 				   var day = givenDate.getDay();
-				   var weeks = new Array("Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat");
+				   var weeks = new Array("Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat");
 				   var week = weeks[day];
 				   return week;
 				}
