@@ -24,11 +24,11 @@
 				</view>
 				<view class="margin-0 flex-item uni-column" style="font-size: large; padding-top: 20rpx; padding-right: 10rpx;">
 					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" v-bind:style="[{ fontWeight: FWeight}]" v-on:click="changeUnit(true)">
-						F°
+						°F
 					</view>
 					<hr/>
 					<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000;" v-bind:style="[{ fontWeight: CWeight}]" v-on:click="changeUnit(false)">
-						C°
+						°C
 					</view>
 				</view>
 				<view class="margin-0 flex-item" style="font-size: large; width: 500rpx;">
@@ -140,7 +140,7 @@
 					url: "http://localhost:26216/PeoplePredictionsB2/graphql",
 					dataType: 'json',
 					method: 'POST',
-					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\", latitude: \"35.88334\", longitude: \"131\"}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...regularWeatherItem\n  __typename\n}\n\nfragment regularWeatherItem on RegularWeatherFeedItemType {\n  regularWeatherInfo {\n    iconUrl\n    temp\n    rh\n    uvDesc\n    dailyWeathers {\n      ...dailyWeather\n    }\n  }\n}\n\nfragment dailyWeather on DailyWeatherType {\n  iconUrl\n  vaildDate\n  tempHi\n  tempLo\n}\n"},
+					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\", userContext: [{entityType: \"location\", location: {geo: {latitude: 35.88334, longitude: 131}}}]}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...regularWeatherItem\n  __typename\n}\n\nfragment regularWeatherItem on RegularWeatherFeedItemType {\n  regularWeatherInfo {\n    iconUrl\n    temp\n    rh\n    uvDesc\n    dailyWeathers {\n      ...dailyWeather\n    }\n  }\n}\n\nfragment dailyWeather on DailyWeatherType {\n  iconUrl\n  vaildDate\n  tempHi\n  tempLo\n}\n"},
 					success: (res) => {
 						for (let i in res.data.data.feed.main.items) {
 							let item = res.data.data.feed.main.items[i];
