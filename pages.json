@@ -115,6 +115,23 @@
 			}
 		},
 		{
+			"path": "pages/tabBar/Stock/Stock",
+			"style": {
+				"navigationBarTitleText": "Stock",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue534",
+							"fontSrc": "/static/uni.ttf",
+							"fontSize": "22px",
+							"color": "#FFFFFF"
+						}]
+					}
+				},
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/component/view/view",
 			"style": {
 				"navigationBarTitleText": "view"
@@ -373,6 +390,15 @@
                 "enablePullDownRefresh": false
             }
 
+        }
+        ,{
+            "path" : "pages/tabBar/Stock/WebView",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"subPackages": [{
@@ -1308,11 +1334,6 @@
 		"borderStyle": "black",
 		"backgroundColor": "#F8F8F8",
 		"list": [{
-				"pagePath": "pages/tabBar/component/component",
-				"iconPath": "static/component.png",
-				"selectedIconPath": "static/componentHL.png",
-				"text": "内置组件"
-			},{
 				"pagePath": "pages/tabBar/negPage/Sports",
 				"iconPath": "static/sports.png",
 				"selectedIconPath": "static/sportsHL.png",
@@ -1329,10 +1350,10 @@
 				"selectedIconPath": "static/weather-on.png",
 				"text": "Weather"
 			}, {
-				"pagePath": "pages/tabBar/template/template",
-				"iconPath": "static/template.png",
-				"selectedIconPath": "static/templateHL.png",
-				"text": "模板"
+				"pagePath": "pages/tabBar/Stock/Stock",
+				"iconPath": "static/stock-off.png",
+				"selectedIconPath": "static/stock-on.png",
+				"text": "Stock"
 			}
 		]
 	}
