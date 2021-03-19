@@ -15,10 +15,10 @@
 				<uni-list v-for="(stock, index) in stocks" :key="index">
 					<view class="uni-flex uni-row">
 						<view class="uni-flex uni-column" style="height: 150rpx;">
-							<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000; font-weight: bold; width: 300rpx;">
+							<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000; font-weight:900; width: 300rpx;">
 								{{stock.symbol}}
 							</view>
-							<view class="margin-0 flex-item" style="font-size: 1px; color: #000000; width: 300rpx; font-weight: 100;">
+							<view class="margin-0 flex-item" style="font-size: 10rpx; color: #000000; width: 300rpx; font-weight: 100;">
 								{{stock.displayName}}
 							</view>
 						</view>
@@ -37,6 +37,18 @@
 		<button @click="seeMoreStocks()">
 			See more
 		</button>
+		<form @submit="addStocks">
+			<view class="uni-flex uni-row" style="padding-top: 50rpx; padding-left: 30rpx;">
+				<view class="margin-0 flex-item" style="width: 500rpx;">
+					<input class="uni-input" name="input" placeholder-style="color:#000000" placeholder="Please input targetId of stocks" />
+				</view>
+				<view class="margin-0 flex-item">
+					<button form-type="submit">
+						Add
+					</button>
+				</view>
+			</view>
+		</form>
 	</view>
 </template>
 
@@ -105,20 +117,38 @@
 					url: "http://localhost:26216/PeoplePredictionsB2/graphql",
 					dataType: 'json',
 					method: 'POST',
-					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\"}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...stockItem\n  __typename\n}\n\nfragment stockItem on StockFeedItemType {\n  stockInfo {\n    stocks {\n      ...stock\n    }\n  }\n  __typename\n}\n\nfragment stock on StockType {\n  price\n  priceChange\n  priceDayLow\n  priceDayHigh\n  priceDayOpen\n  priceChangePercent\n  pricePreviousClose\n  marketCap\n  market\n  shortName\n  displayName\n  symbol\n}\n"},
+					data: {"operationName":"mainFeed","variables":{},"query":"query mainFeed {\n  feed {\n    main: section(input: {top: 10, section: \"DynamicFeed\"}) {\n      ...feedSection\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment feedSection on FeedSingleSectionType {\n  requestId\n  items {\n    ...feedItem\n    __typename\n  }\n  __typename\n}\n\nfragment feedItem on FeedItemInterface {\n  ...stockItem\n  __typename\n}\n\nfragment stockItem on StockFeedItemType {\n  stockInfo {\n    stocks {\n      ...stock\n    }\n  }\n  deeplink\n  __typename\n}\n\nfragment stock on StockType {\n  price\n  priceChange\n  priceDayLow\n  priceDayHigh\n  priceDayOpen\n  priceChangePercent\n  pricePreviousClose\n  marketCap\n  market\n  shortName\n  displayName\n  symbol\n}\n"},
 					success: (res) => {
 						for (let i in res.data.data.feed.main.items) {
 							let item = res.data.data.feed.main.items[i];
 							if (item.__typename == "StockFeedItemType") {
 								this.stocks = item.stockInfo.stocks
+								this.url = item.deeplink
 							}
 						}
 					}
 				})
 			},
 			seeMoreStocks() {
-				window.location.href="https://www.msn.cn/en-us/money";
-			}
+				window.location.href=this.url;
+			},
+			addStocks: function(e) {
+                console.log('Stocks added：' + JSON.stringify(e.detail.value))
+                var formdata = e.detail.value
+				uni.request({
+					url: "http://localhost:26216/PeoplePredictionsB2/graphql",
+					dataType: 'json',
+					method: 'POST',
+					data: {"operationName":"addStock","variables":{"input":{"targetId": e.detail.value.input}},"query":"mutation addStock($input: StockMutationInputType!) {\n  stock {\n    create(input: $input) {\n      actionInfo {\n        actionType\n        ownerId\n        targetId\n        targetType\n        deleted\n        __typename\n      }\n      __typename\n    }\n  }\n}\n"},
+					success: (res) => {
+						uni.showModal({
+						    content: 'Stocks added：' + JSON.stringify(formdata.input),
+						    showCancel: false
+						});
+						this.getWatchStocks()
+					}
+				})
+            }
 		}
 	}
 </script>
